@@ -1,15 +1,8 @@
-// const { Server } = require('socket.io')
+
 import {Server} from "socket.io"
-
-// const Connection = require('./database/db.js')
-
 import  Connection  from './database/db.js'
 Connection()
-
 import { getDocument ,updateDocument} from './controller/document-controller.js'
-// const getDocument = require('./controller/document-controller.js')
-// const updateDocument = require("./controller/document-controller.js")
-
 const port = 9000
 
 const io = new Server(port, {
@@ -26,7 +19,7 @@ io.on('connection', (socket) => {
          const document = await getDocument(documentId)
          socket.emit('load-document', document.data)
      } catch (error) {
-         console.log("erroe aa gya bhai", error)
+         console.log("error while loading the document", error)
      }
 
     socket.join(documentId)
@@ -38,7 +31,7 @@ io.on('connection', (socket) => {
       try {
         await updateDocument(documentId, data)
       } catch (error) {
-        console.log('hey remove the error', error)
+        console.log('Error while updating the document', error)
       }
     })
   })
