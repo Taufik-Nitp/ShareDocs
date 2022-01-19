@@ -1,19 +1,19 @@
 
-// import {mongoose} from "mongoose"
+import mongoose from "mongoose"
 
-const mongoose=require("mongoose")
+// const mongoose=require("mongoose")
 
 const documentSchema= mongoose.Schema({
     _id:{
         type: String,
         required: true
     },
-    document:{
+    data:{
         type: Object,
         required: true
     }
 })
 const Document=mongoose.model("document",documentSchema);
 
-// export default document
-module.exports={Document}
+export default Document
+// module.exports={Document}

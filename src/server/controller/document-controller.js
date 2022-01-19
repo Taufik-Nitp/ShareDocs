@@ -1,10 +1,10 @@
  
 
-//  import {Document} from "../schema/documentSchema.js"
+ import Document from "../schema/documentSchema.js"
 
-   const Documnet = require('../schema/documentSchema.js')
+//    const Documnet = require('../schema/documentSchema.js')
 
-  const getDocument= async(id)=>{
+  export const getDocument= async(id)=>{
      if(id===null) return 
     const document= await Document.findById(id);
 
@@ -13,9 +13,9 @@
      return await Document.create({_id:id, data:""});
  }
 
-    const updateDocument= async( id, data)=>{
+   export  const updateDocument= async( id, data)=>{
         return await Document.findByIdAndUpdate(id,{data});
     }
 
-    updateDocument();
- getDocument();
+//     updateDocument();
+//  getDocument();
