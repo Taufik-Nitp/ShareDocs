@@ -28,7 +28,8 @@ io.on('connection', (socket) => {
         console.log("remov the error",error)
     }
     socket.join(documentId)
-    socket.emit('load-document', document.data)
+    const data="";
+    socket.emit('load-document', data)
     socket.on('send-changes', (delta) => {
       socket.broadcast.to(documentId).emit('recieve-changes', delta)
     })
