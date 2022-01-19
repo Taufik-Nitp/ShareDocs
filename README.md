@@ -1,5 +1,9 @@
 # Getting Started with Create React App
 
+# If you are new to MERN then make sure that first install all the module using npm install .
+
+# After that start react using npm start and also start the backend server usnig nodemon server.js
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

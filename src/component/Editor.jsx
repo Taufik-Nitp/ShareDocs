@@ -6,6 +6,7 @@ import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
+// useParams needed to get parameter from the url like id 
 import { useParams } from 'react-router-dom'
 
 const toolbarOptions = [
@@ -27,6 +28,8 @@ const toolbarOptions = [
 
   ['clean'], // remove formatting button
 ]
+
+// setup the quill editor by instancing the object of Quill
 const Editor = () => {
   useEffect(() => {
     const quillserver = new Quill('#container', {
@@ -41,6 +44,7 @@ const Editor = () => {
   const [quill, setQuill] = useState()
   const [socket, setSocket] = useState()
   const { id } = useParams()
+
   useEffect(() => {
     const socketServer = io('http://localhost:9000')
     setSocket(socketServer)
@@ -55,6 +59,8 @@ const Editor = () => {
       if (source !== 'user') return
       socket && socket.emit('send-changes', delta)
     }
+
+    // if quill is not null then only listen
     quill && quill.on('text-change', handleChange)
     
     return () => {
@@ -84,21 +90,21 @@ const Editor = () => {
       })
     socket && socket.emit('get-document', id)
   }, [quill, socket, id])
-
-
+/// to save the editor area in every two second
   useEffect(() => {
       if(socket===null || quill===null) return ;
         const interval=  setInterval(()=>{
         socket&& socket.emit("save-document",quill.getContents())
       },2000)
-      // interval()
+      
       return ()=>{
         clearInterval(interval);
       }
   }, [quill,socket])
-
+  
   return (
     <>
+      
       <Box id='container'></Box>
     </>
   )

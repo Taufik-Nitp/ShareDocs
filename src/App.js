@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import Editor from './component/Editor.jsx'
 // npm i uuid
+// this is a package to generate an id and make the url unique
 import { v4 as uuid } from 'uuid'
 
 function App() {
