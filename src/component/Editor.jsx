@@ -5,8 +5,9 @@ import Quill from 'quill'
 //   in node_module, in quill package the import this css file for styling in snow theme
 import 'quill/dist/quill.snow.css'
 import { useEffect, useState } from 'react'
+//npm install socket.io.client
 import { io } from 'socket.io-client'
-// useParams needed to get parameter from the url like id 
+// useParams needed to get parameter from the url like id
 import { useParams } from 'react-router-dom'
 
 const toolbarOptions = [
@@ -31,6 +32,10 @@ const toolbarOptions = [
 
 // setup the quill editor by instancing the object of Quill
 const Editor = () => {
+  const [quill, setQuill] = useState()
+  const [socket, setSocket] = useState()
+  const { id } = useParams()
+
   useEffect(() => {
     const quillserver = new Quill('#container', {
       theme: 'snow',
@@ -38,13 +43,10 @@ const Editor = () => {
     })
     quillserver.disable()
     quillserver.setText('Loading the document.....')
+    // putting the quillserver ie editor in quill useState
     setQuill(quillserver)
   }, [])
-
-  const [quill, setQuill] = useState()
-  const [socket, setSocket] = useState()
-  const { id } = useParams()
-
+         // making the connection to the server socket
   useEffect(() => {
     const socketServer = io('http://localhost:9000')
     setSocket(socketServer)
@@ -62,7 +64,7 @@ const Editor = () => {
 
     // if quill is not null then only listen
     quill && quill.on('text-change', handleChange)
-    
+
     return () => {
       quill && quill.off('text-change', handleChange)
     }
@@ -90,21 +92,20 @@ const Editor = () => {
       })
     socket && socket.emit('get-document', id)
   }, [quill, socket, id])
-/// to save the editor area in every two second
+  /// to save the editor area in every two second
   useEffect(() => {
-      if(socket===null || quill===null) return ;
-        const interval=  setInterval(()=>{
-        socket&& socket.emit("save-document",quill.getContents())
-      },2000)
-      
-      return ()=>{
-        clearInterval(interval);
-      }
-  }, [quill,socket])
-  
+    if (socket === null || quill === null) return
+    const interval = setInterval(() => {
+      socket && socket.emit('save-document', quill.getContents())
+    }, 2000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [quill, socket])
+
   return (
     <>
-      
       <Box id='container'></Box>
     </>
   )

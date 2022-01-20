@@ -1,7 +1,4 @@
-
 import mongoose from "mongoose"
-
-// const mongoose=require("mongoose")
 
 const documentSchema= mongoose.Schema({
     _id:{
@@ -14,6 +11,4 @@ const documentSchema= mongoose.Schema({
     }
 })
 const Document=mongoose.model("document",documentSchema);
-
 export default Document
-// module.exports={Document}

@@ -1,16 +1,18 @@
 
-import {Server} from "socket.io"
-import  Connection  from './database/db.js'
+import {Server} from "socket.io"  // named import / destructuring
+import  Connection  from './database/db.js'    // default export 
 Connection()
 import { getDocument ,updateDocument} from './controller/document-controller.js'
 const port = 9000
-
+ // making the server socket on port 9000
 const io = new Server(port, {
+  // in server socket there is origin policy which is handled here
   cors: {
     origin: 'http://localhost:3000',
     method: ['GET', 'POST'],
   },
 })
+
 io.on('connection', (socket) => {
   socket.on('get-document', async (documentId) => {
     // const data = ''
