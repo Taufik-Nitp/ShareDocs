@@ -1,5 +1,5 @@
 
-# Live multiple docs share app made using nodeJS,material-UI,MongoDB
+# Realtime multiple docs share app made using nodeJS,material-UI,MongoDB
 # If you are new to MERN then make sure that first install all the module using npm install.
 #
 ![Screenshot (590)](https://user-images.githubusercontent.com/76401932/150283750-a0f82110-219e-4d52-8d80-07137f9ea3b9.png)
